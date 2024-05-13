@@ -8,8 +8,11 @@ import './App.css'
 function App() {
   return (
     <Provider store={store}>
-      <AddTodo/>
-      <TodoList />
+      <div className="container">
+        <h1>Todo List</h1>
+        <AddTodo />
+        <TodoList />
+      </div>
     </Provider>
   )
 }
