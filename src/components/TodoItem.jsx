@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { toggleTodo } from '../store/todoSlice';
+import { toggleTodo, deleteTodo } from '../store/todoSlice';
 import { useDispatch } from 'react-redux';
 
 
@@ -12,23 +12,27 @@ function TodoItem({todo}) {
   return (
     <li
         key={todo.id}
-        className={`todo-item ${todo.completed ? 'completed' : ''}`}
-        onClick={() => handleTodoClick(todo)}
+        className={`todo-item br-10 ${todo.completed ? 'completed' : ''}`}
     >
-        <div className='todo-title'>
-        <input
-            type="checkbox"
-            checked={todo.completed}
-            onChange={() => dispatch(toggleTodo(todo.id))}
-        />
-        {todo.title}
-
+        <div className='todo-head'>
+            <div className='todo-title' onClick={() => handleTodoClick(todo)}>
+                <input
+                    type="checkbox"
+                    checked={todo.completed}
+                    onChange={() => dispatch(toggleTodo(todo.id))}
+                />
+                {todo.title}
+            </div>
+            <button
+                className='delete-btn'
+                onClick={() => {window.confirm( 'Are you sure you want to delete this to-do item?') && dispatch(deleteTodo(todo.id))}}
+            ><img src="/public/delete.svg" alt="" /></button>
         </div>
-        {selectedTodo === todo &&  (
-        <div className="todo-description">
-            <p>{todo.description}</p>
-        </div>
-        )}
+            {selectedTodo === todo && todo.description &&  (
+            <div className="todo-description br-10">
+                <p>{todo.description}</p>
+            </div>
+            )}
   </li>
   )
 }
